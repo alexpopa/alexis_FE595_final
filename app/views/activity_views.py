@@ -9,7 +9,7 @@ import plotly.tools as tls
 from plotly.offline import init_notebook_mode, iplot, plot, offline
 import plotly.graph_objs as go
 
-dataset = pd.read_csv("/home/ep-rd-laptop/Downloads/csvs/real_estate.csv", encoding='ISO-8859-1' )
+dataset = pd.read_csv("/real_estate.csv", encoding='ISO-8859-1' )
 
 
 # -----------------------creating BAR PLOT for the data collected-----------------------#
