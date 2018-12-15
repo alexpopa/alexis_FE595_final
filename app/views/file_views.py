@@ -14,6 +14,6 @@ def send_any(fname):
 @app.route('/download_data')
 def raw_data():
     try:
-        return send_file("/home/ep-rd-laptop/Downloads/csvs/real_estate.csv")
+        return send_file("real_estate.csv")
     except:
         print(e)
