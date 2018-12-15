@@ -80,14 +80,15 @@ params = {
     'port': 5432
 }
 
+#main page
 @app.route("/", methods=["GET"])
 def index():
 
     return render_template('homepage.html')
 
-#Use flask to create a page that displays all rentals in
-#chronological order and info about them by pulling
-#the info from a postgres database
+
+#takes in the data of state, cities, plot_type, and data_type
+#and then returns the graph of the data
 
 @app.route('/by_cities', methods=['GET', 'POST'])
 def by_cities():
@@ -108,7 +109,7 @@ def by_cities():
 
         print(name)
 
-        col = rent
+        ## creating list of the columns the variable "col" on the basis of what is selected on the webpage
         if name == 'Rent':
             col = rent
         if name == 'Mortgage':
@@ -121,6 +122,11 @@ def by_cities():
             col = age
         if name == 'HS':
             col = degree
+
+        col
+
+        # -----------------------creating TITLE for each type of plot-----------------------#
+
 
         Title = None
 
@@ -147,7 +153,8 @@ def by_cities():
         print(e)
 
 
-
+#Gets state name from user and returns in alphabetical order
+#the list of cities from that state
 @app.route('/state', methods=['GET', 'POST'])
 def get_cities():
     print(request)
@@ -159,7 +166,6 @@ def get_cities():
     cities = list(gdf.get_group(state).city.unique())
     cities = str(sorted(cities))[1:-1]
     return render_template_string(cities)
-
 
 city_count = dataset.city.value_counts()
 #city_count
@@ -173,13 +179,15 @@ def show_city_frequency(number_of_city = 10):
         x=dataset[dataset.city.isin(city_count[:number_of_city].index.values)]['city'],
         showlegend=False)
 
-    ## Creating the grid for all the above plots
+    ## Creating the grid for the above plot
     fig = tls.make_subplots(rows=1, cols=1)
 
-    fig.append_trace(plot_1,1,1)
+    ## appending the plot on to the grid
+    fig.append_trace(plot_1, 1, 1)
 
+    ## displaying the figure
+    fig['layout'].update(showlegend=True, title="Frequency of cities in the dataset ")
 
-    fig['layout'].update(showlegend=True, title="Most Frequent Cities in the Dataset ")
     div = offline.plot(fig, show_link=False, output_type="div", include_plotlyjs=False)
 
     return '<script src="https://cdn.plot.ly/plotly-1.2.0.min.js"></script>' + div

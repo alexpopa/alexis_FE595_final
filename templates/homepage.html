@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>Real Estate Data</title>
 
-
+    <!--style page-->
     <style>
         #top {
             height:70px;
@@ -49,11 +49,15 @@
 </head>
 
 <body>
+<!--Create navigation bar at top of the page.  same for all pages-->
 <div id="top">Real Estate Data Site</div>
 <div id="navbar" style="width:100%;">
     <button class="topn" onclick = "location.href = '/'" style="margin-right:.5%;">Home</button>
     <button class="topn" onclick = "location.href = '/download_data'" style="margin-right:.5%;">Download Raw Data</button>
 </div>
+
+<!--Make selections of states, cities, data types and plot types-->
+
 <div id="states">
     State:
     <select>
@@ -146,9 +150,11 @@
 
 <button id="submit">Submit</button>
 
+<!--Initially load the page with a graph saying which cities are encountered most frequently in the dataset-->
 <div id="results"><iframe src="/plot" style="width:96%;margin-left:2%;height:400px;"></iframe> </div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<!--when you click on state have it populate the cities selection menu-->
 <script>
     $(document).ready(function(){
 
@@ -173,9 +179,10 @@
                 console.log(data)
                 console.log(typeof(data))
                 cities = data.split(',')
-                temp = 'City: <button style="width:200px;">Select Cities</button><div id="drop"><form><input type="checkbox" value="all">All<br>'
+                cities[0] = ' '+cities[0]
+                temp = 'City: <button style="width:200px;">Select Cities</button><div id="drop"><form><br>'
                 for (i=0;i<cities.length;i++) {
-                    temp += '<input type="checkbox" value = "' + cities[i] + '">'+cities[i] + '<br>'
+                    temp += '<input type="checkbox" value = "' + cities[i] + '">'+cities[i].slice(2,-1) + '<br>'
                 }
                 temp += '</form></div>'
                 $('#city').html(temp)
@@ -221,6 +228,7 @@
 });
 </script>
 
+<!--Make it so when you click on the cities drop down the list shows up and disappears whenever you click outside of it-->
     <script>
     $('html').click(function() {
         $('#drop').hide();

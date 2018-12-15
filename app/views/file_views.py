@@ -2,7 +2,7 @@ from app import flask_app as app
 from flask import request, render_template
 from flask import send_file
 
-
+#Send any file
 @app.route('/send/<fname>')
 def send_any(fname):
     fname = fname.replace('&', '/')
@@ -11,6 +11,7 @@ def send_any(fname):
     except Exception as e:
         print(e)
 
+#send main data file
 @app.route('/download_data')
 def raw_data():
     try:
